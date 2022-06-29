@@ -2,7 +2,7 @@
 数字挑战计算器
 
 @author: zhouhuajian
-@version: v1.0
+@version: v1.2
 """
 
 
@@ -13,7 +13,7 @@ class DigitChallengeCalculator:
         """初始化"""
         self.digits = list(range(1, 10))  # 1 2 3 4 5 6 7 8 9
 
-    def start_calculate(self, exp: str):
+    def start_calculate(self, exp: str) -> str:
         """开始计算"""
         # TODO: 目前暂且只支持2-5个问号，排列组合算法可能可以优化
         qmark_num = exp.count('?')
@@ -39,7 +39,7 @@ class DigitChallengeCalculator:
         # 两个等号变成一个
         return result.replace("==", '=')
 
-    def calculate_qmark_2(self, exp: str):
+    def calculate_qmark_2(self, exp: str) -> str:
         """2个问号"""
         for num_1 in self.digits:
             for num_2 in self.get_digits_exclude(num_1):
@@ -47,8 +47,9 @@ class DigitChallengeCalculator:
                 # 如果执行后为True，则得到答案
                 if eval(new_exp):
                     return new_exp
+        return ''
 
-    def calculate_qmark_3(self, exp):
+    def calculate_qmark_3(self, exp) -> str:
         """3个问号"""
         for num_1 in self.digits:
             for num_2 in self.get_digits_exclude(num_1):
@@ -57,8 +58,9 @@ class DigitChallengeCalculator:
                     # 如果执行后为True，则得到答案
                     if eval(new_exp):
                         return new_exp
+        return ''
 
-    def calculate_qmark_4(self, exp):
+    def calculate_qmark_4(self, exp) -> str:
         """4个问号"""
         for num_1 in self.digits:
             for num_2 in self.get_digits_exclude(num_1):
@@ -68,8 +70,9 @@ class DigitChallengeCalculator:
                         # 如果执行后为True，则得到答案
                         if eval(new_exp):
                             return new_exp
+        return ''
 
-    def calculate_qmark_5(self, exp):
+    def calculate_qmark_5(self, exp) -> str:
         """5个问号"""
         for num_1 in self.digits:
             for num_2 in self.get_digits_exclude(num_1):
@@ -82,8 +85,9 @@ class DigitChallengeCalculator:
                             # 如果执行后为True，则得到答案
                             if eval(new_exp):
                                 return new_exp
+        return ''
 
-    def get_digits_exclude(self, *exclude_nums):
+    def get_digits_exclude(self, *exclude_nums) -> list:
         """获取数字里列表，排查exclude_nums里面的数字"""
         return list(set(self.digits).difference(set(exclude_nums)))
 
