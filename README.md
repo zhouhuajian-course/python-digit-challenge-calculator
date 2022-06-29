@@ -22,4 +22,4 @@ Output: (1+4)*(8-2)+9=39
 
 ## 简单的单元测试
 
-运行 pytest
+运行 pytest --verbose
