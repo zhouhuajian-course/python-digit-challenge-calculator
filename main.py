@@ -42,9 +42,7 @@ class DigitChallengeCalculator:
     def calculate_qmark_2(self, exp: str):
         """2个问号"""
         for num_1 in self.digits:
-            digits_copy_for_num_2 = self.digits.copy()
-            digits_copy_for_num_2.remove(num_1)
-            for num_2 in digits_copy_for_num_2:
+            for num_2 in self.get_digits_exclude(num_1):
                 new_exp = exp.format(num_1, num_2)
                 # 如果执行后为True，则得到答案
                 if eval(new_exp):
@@ -53,13 +51,8 @@ class DigitChallengeCalculator:
     def calculate_qmark_3(self, exp):
         """3个问号"""
         for num_1 in self.digits:
-            digits_copy_for_num_2 = self.digits.copy()
-            digits_copy_for_num_2.remove(num_1)
-            for num_2 in digits_copy_for_num_2:
-                digits_copy_for_num_3 = self.digits.copy()
-                digits_copy_for_num_3.remove(num_1)
-                digits_copy_for_num_3.remove(num_2)
-                for num_3 in digits_copy_for_num_3:
+            for num_2 in self.get_digits_exclude(num_1):
+                for num_3 in self.get_digits_exclude(num_1, num_2):
                     new_exp = exp.format(num_1, num_2, num_3)
                     # 如果执行后为True，则得到答案
                     if eval(new_exp):
@@ -68,18 +61,9 @@ class DigitChallengeCalculator:
     def calculate_qmark_4(self, exp):
         """4个问号"""
         for num_1 in self.digits:
-            digits_copy_for_num_2 = self.digits.copy()
-            digits_copy_for_num_2.remove(num_1)
-            for num_2 in digits_copy_for_num_2:
-                digits_copy_for_num_3 = self.digits.copy()
-                digits_copy_for_num_3.remove(num_1)
-                digits_copy_for_num_3.remove(num_2)
-                for num_3 in digits_copy_for_num_3:
-                    digits_copy_for_num_4 = self.digits.copy()
-                    digits_copy_for_num_4.remove(num_1)
-                    digits_copy_for_num_4.remove(num_2)
-                    digits_copy_for_num_4.remove(num_3)
-                    for num_4 in digits_copy_for_num_4:
+            for num_2 in self.get_digits_exclude(num_1):
+                for num_3 in self.get_digits_exclude(num_1, num_2):
+                    for num_4 in self.get_digits_exclude(num_1, num_2, num_3):
                         new_exp = exp.format(num_1, num_2, num_3, num_4)
                         # 如果执行后为True，则得到答案
                         if eval(new_exp):
@@ -88,28 +72,20 @@ class DigitChallengeCalculator:
     def calculate_qmark_5(self, exp):
         """5个问号"""
         for num_1 in self.digits:
-            digits_copy_for_num_2 = self.digits.copy()
-            digits_copy_for_num_2.remove(num_1)
-            for num_2 in digits_copy_for_num_2:
-                digits_copy_for_num_3 = self.digits.copy()
-                digits_copy_for_num_3.remove(num_1)
-                digits_copy_for_num_3.remove(num_2)
-                for num_3 in digits_copy_for_num_3:
-                    digits_copy_for_num_4 = self.digits.copy()
-                    digits_copy_for_num_4.remove(num_1)
-                    digits_copy_for_num_4.remove(num_2)
-                    digits_copy_for_num_4.remove(num_3)
-                    for num_4 in digits_copy_for_num_4:
-                        digits_copy_for_num_5 = self.digits.copy()
-                        digits_copy_for_num_5.remove(num_1)
-                        digits_copy_for_num_5.remove(num_2)
-                        digits_copy_for_num_5.remove(num_3)
-                        digits_copy_for_num_5.remove(num_4)
-                        for num_5 in digits_copy_for_num_5:
-                            new_exp = exp.format(num_1, num_2, num_3, num_4, num_5)
+            for num_2 in self.get_digits_exclude(num_1):
+                for num_3 in self.get_digits_exclude(num_1, num_2):
+                    for num_4 in self.get_digits_exclude(num_1, num_2, num_3):
+                        for num_5 in self.get_digits_exclude(num_1, num_2, num_3, num_4):
+                            new_exp = exp.format(
+                                num_1, num_2, num_3, num_4, num_5
+                            )
                             # 如果执行后为True，则得到答案
                             if eval(new_exp):
                                 return new_exp
+
+    def get_digits_exclude(self, *exclude_nums):
+        """获取数字里列表，排查exclude_nums里面的数字"""
+        return list(set(self.digits).difference(set(exclude_nums)))
 
 
 if __name__ == '__main__':
